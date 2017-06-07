@@ -13,6 +13,11 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +28,8 @@ public class Login extends Application {
 
     Stage window;
     Scene loginScene, homePageScene;
-
+    ArrayList<UserProfile> userlist;
+    
     @Override
     public void start(Stage primaryStage) throws Exception {
         window = primaryStage;
@@ -37,7 +43,35 @@ public class Login extends Application {
     }
     //Malini
     public void loginPage(Stage window) throws Exception {
-        List<UserProfile> userlist = new ArrayList<UserProfile>();
+        
+    	userlist = new ArrayList<UserProfile>();
+    	
+        //import users
+    	if(UserProfile.importData() != null)
+    	{
+//    		System.out.println("Imported!");
+    		
+        	userlist = UserProfile.importData();
+    	}
+    	
+//    	System.out.println("Before printing list");
+//    	
+//    	System.out.println("List size: " + userlist.size());
+    	
+    	//print userlist
+    	//probably checks folders?
+    	for (int i = 0; i < userlist.size(); i++) 
+    	{
+    		if (!Files.isDirectory(Paths.get("c:\\HIHUsers\\" + userlist.get(i).getUsername()))) 
+    		{
+    			 System.out.println("Creating folder for user: " + userlist.get(i).getUsername()); 
+    			 File dir = new File("c:\\HIHUsers\\" + userlist.get(i).getUsername());
+     			dir.mkdir();
+    		}
+    	}
+    	
+    	System.out.println("After printing list");
+        
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
@@ -148,9 +182,41 @@ public class Login extends Application {
             dialog.setResultConverter(dialogButton -> {
                 if (dialogButton == loginButtonType) {
                     if (!password.getText().equals("")) {
-                        UserProfile newProfile = new UserProfile(username.getText(), password.getText());
-                        userlist.add(newProfile);
-                        newProfile.export();
+                    	
+                    	
+                    	//Check if username is take
+                    	boolean exists = false;
+                    	
+                    	for (int i = 0; i < userlist.size(); i++) 
+                    	{
+                            if (username.getText().toString().equals(userlist.get(i).getUsername()))
+                            {
+                            	exists = true;
+                            }
+                    	}
+                    	
+                    	if(!exists)
+                    	{
+                    		UserProfile newProfile = new UserProfile(username.getText(), password.getText());
+                            userlist.add(newProfile);
+                            UserProfile.export(userlist);
+                            
+                            if (!Files.isDirectory(Paths.get("c:\\HIHUsers\\" + username.getText()))) 
+                    		{
+                    			 System.out.println("Creating folder for user: " + username.getText()); 
+                    			 File dir = new File("c:\\HIHUsers\\" + username.getText());
+                     			dir.mkdir();
+                    		}
+                    	}
+                    	else {
+                            // error "One or more fields are empty.
+                            Alert alert = new Alert(Alert.AlertType.WARNING);
+                            alert.setTitle("Error!");
+                            alert.setHeaderText("Username is already taken!");
+                            alert.setContentText("Please choose an unused username.");
+
+                            alert.showAndWait();
+                        }
 
                     } else {
                         // error "One or more fields are empty.
