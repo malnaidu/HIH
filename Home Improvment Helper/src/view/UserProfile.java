@@ -5,6 +5,8 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 
 // you can add other public classes to this editor in any order
@@ -34,13 +36,28 @@ public class UserProfile implements Serializable
         return password;
     }
 
-    public void export () {
+//    public void export () {
+//        ObjectOutputStream oos = null;
+//        FileOutputStream fout = null;
+//        try{
+//            fout = new FileOutputStream("c:\\profile.ser", true);
+//            oos = new ObjectOutputStream(fout);
+//            oos.writeObject(this);
+//        } catch (Exception ex) {} 
+//        finally {
+//            if(oos != null){
+//                try {oos.close();} catch (Exception e) {}
+//            }
+//        } 
+//    }
+    
+    public static void export (ArrayList<UserProfile> userlist) {
         ObjectOutputStream oos = null;
         FileOutputStream fout = null;
         try{
-            fout = new FileOutputStream("c:\\profile.ser", true);
+            fout = new FileOutputStream("c:\\profile.ser");
             oos = new ObjectOutputStream(fout);
-            oos.writeObject(this);
+            oos.writeObject(userlist);
         } catch (Exception ex) {} 
         finally {
             if(oos != null){
@@ -49,17 +66,18 @@ public class UserProfile implements Serializable
         } 
     }
     
-    public UserProfile importData()
+    @SuppressWarnings("unchecked")
+	public static ArrayList<UserProfile> importData()
     {
         ObjectInputStream ois = null;
         FileInputStream fin = null;
         
-        UserProfile temp = null;
+        ArrayList<UserProfile> temp = null;
         
         try{
             fin = new FileInputStream("c:\\profile.ser");
             ois = new ObjectInputStream(fin);
-            temp = (UserProfile) ois.readObject();
+            temp = (ArrayList<UserProfile>) ois.readObject();
             
 //            this.tagName = temp.gettagName();
 //            this.email = temp.getemail();
@@ -69,7 +87,6 @@ public class UserProfile implements Serializable
                 try {ois.close();} catch (Exception e) {}
             } 
         }
-        
         return temp;
     }
 }
