@@ -1,0 +1,23 @@
+.root {-fx-background-image: url("HIH_Login_Photo.png");}
+
+.label {
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0E1D33;
+}
+
+#login-text{
+    -fx-font-size:32px;
+    -fx-font-family: "Open Sans";
+    -fx-fill: #115E7F;
+}
+
+#actiontarget {
+    -fx-fill:WHITE;
+    -fx-font-weight:bold;
+}
+.button {
+    -fx-text-fill:black;
+    -fx-font-family:"Open Sans";
+    -fx-font-weight:bold;
+}

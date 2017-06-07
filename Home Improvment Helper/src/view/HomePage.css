@@ -1,0 +1,32 @@
+.root {-fx-background-image: url("HIH_Photo.png");}
+
+.label {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0E1D33;
+}
+
+#login-text{
+    -fx-font-size:36px;
+    -fx-font-family: "Open Sans";
+    -fx-fill: #115E7F;
+}
+
+#actiontarget {
+    -fx-fill:WHITE;
+    -fx-font-weight:bold;
+
+}
+.button {
+    -fx-text-fill:white;
+    -fx-font-family:"Open Sans";
+    -fx-font-size: 17px;
+    -fx-background-color:linear-gradient(#61a2b1,#2A5058);
+    -fx-min-height: 150px;
+    -fx-min-width: 200px;
+
+}
+
+button1 {
+    -fx-font: 22 arial; -fx-base: #b6e7c9;
+}
