@@ -26,8 +26,8 @@ import java.util.List;
  */
 public class Login extends Application {
 
-    Stage window;
-    Scene loginScene, homePageScene;
+    Stage window = Main.window;
+    Scene loginScene = Main.loginScene, homePageScene = Main.homePageScene, formPageScene = Main.formPageScene;
     ArrayList<UserProfile> userlist;
     
     @Override
@@ -42,6 +42,7 @@ public class Login extends Application {
         window.show();
     }
     //Malini
+    //brian edited linking
     public void loginPage(Stage window) throws Exception {
         
     	userlist = new ArrayList<UserProfile>();
@@ -119,7 +120,13 @@ public class Login extends Application {
                 for (int i = 0; i < userlist.size(); i++) {
                     if (userTextField.getText().toString().equals(userlist.get(i).getUsername())
                             && pwBox.getText().toString().equals(userlist.get(i).getPassword())) {
-                        window.setScene(homePageScene);
+                        try {
+                            Main.homePage.start(window);
+                        } catch (Exception e) {
+
+                        }
+
+                        //window.setScene(homePageScene);
                         found = true;
                         break;
                     }

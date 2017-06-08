@@ -29,13 +29,13 @@ import javafx.scene.control.TextField;
  */
 public class FormPage extends Application{
 
-    Stage window;
-    Scene sceneFormPage, homePageScene;
+    Stage window = Main.window;
+    Scene loginScene = Main.loginScene, homePageScene = Main.homePageScene, viewPageScene = Main.viewPageScene, formPageScene = Main.formPageScene;
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws Exception {
 
         BorderPane root = new BorderPane();
-        sceneFormPage = new Scene(root, 550, 700);
+        formPageScene = new Scene(root, 550, 700);
 
         GridPane gridPane = new GridPane();
         root.setCenter(gridPane);
@@ -72,14 +72,14 @@ public class FormPage extends Application{
         root.setTop(menuBar);
 
         primaryStage.setTitle("Adding Menus");
-        primaryStage.setScene(sceneFormPage);
+        primaryStage.setScene(formPageScene);
         primaryStage.show();
 
 
-        sceneFormPage.getStylesheets().
+        formPageScene.getStylesheets().
                 add(FormPage.class.getResource("FormPage.css").toExternalForm());
         primaryStage.setTitle("Home Improvement Helper");
-        primaryStage.setScene(sceneFormPage);
+        primaryStage.setScene(formPageScene);
         primaryStage.show();
 
 
@@ -158,6 +158,22 @@ public class FormPage extends Application{
         hbBtn.getChildren().add(btn);
         gridPane.add(hbBtn, 1, 10);
 
+        Button homeBtn = new Button("Home");
+        HBox Hhome = new HBox(10);
+        hbBtn.setAlignment(Pos.BOTTOM_LEFT);
+        hbBtn.getChildren().add(homeBtn);
+        gridPane.add(Hhome, 1, 0);
+        homeBtn.setOnAction(event -> {
+            try {
+                Main.homePage.start(window);
+                //window.setScene(loginScene);
+
+            } catch (Exception e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+        });
+
         //Alisher
         btn.setOnAction(new EventHandler<ActionEvent>() {
                             @Override
@@ -165,7 +181,7 @@ public class FormPage extends Application{
                                 String projectName = userTextField.getText();
                                 String projectDescription = userTextField2.getText();
                                 String measurement1 = userTextField3.getText();
-                               String measurement2 = userTextField4.getText();
+                                String measurement2 = userTextField4.getText();
                                 String price1 = userTextField5.getText();
                                 String price2 = userTextField6.getText();
                                 String totalCost = totalCostField.getText();
