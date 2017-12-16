@@ -15,8 +15,9 @@ import javafx.stage.Stage;
  * Created by malinin on 6/5/17.
  */
 public class HomePage extends Application {
-    Stage window;
-    Scene homePageScene, formPageScene, sceneViewPage;
+    Stage window = Main.window;
+    Scene loginScene = Main.loginScene, homePageScene = Main.homePageScene, viewPageScene = Main.viewPageScene;
+
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -39,7 +40,7 @@ public class HomePage extends Application {
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setHgap(10);
         gridPane.setVgap(10);
-        gridPane.setPadding(new Insets(0,0,100,0));
+        gridPane.setPadding(new Insets(0, 0, 100, 0));
 
         homePageScene = new Scene(root, 550, 700);
 
@@ -73,17 +74,28 @@ public class HomePage extends Application {
         window.show();
 
         Button projectButton = new Button("Create A New Project");
-        gridPane.add(projectButton, 0,0);
+        gridPane.add(projectButton, 0, 0);
 
         Button existingButton = new Button("View Existing Projects");
-        gridPane.add(existingButton,5,0);
+        gridPane.add(existingButton, 5, 0);
 
         Button btn = new Button("Submit");
         HBox hbBtn = new HBox(10);
         hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
         hbBtn.getChildren().add(btn);
+        gridPane.add(btn, 0, 5);
 
-        projectButton.setOnAction(e -> window.setScene(formPageScene));
-        existingButton.setOnAction(e ->window.setScene(sceneViewPage));
+        projectButton.setOnAction(e -> {
+
+            try {
+                Main.formPage.start(window);
+                //window.setScene(loginScene);
+
+            } catch (Exception e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+        });
+        existingButton.setOnAction(e -> window.setScene(viewPageScene));
     }
 }
